@@ -17,14 +17,15 @@ import hashlib
 import re
 import ssl
 import urllib.request
+import os
 from typing import Dict, Any, List
 from research_engine import AutonomousResearchEngine
 
 class PipeshiftInferenceEngine:
     def __init__(self, api_key: str = None, endpoint: str = None, model: str = None):
-        self.api_key = api_key or "AIzaSyCklRCpIgTkrGCuyB4ALyG0gPFQhRJzn-Q"
-        self.primary_model = "gemini-3.6-flash"
-        self.secondary_model = "gemini-2.0-flash"
+        self.api_key = api_key or os.environ.get("GROQ_API_KEY", "")
+        self.primary_model = "llama3-70b-8192"
+        self.secondary_model = "llama3-8b-8192"
         self.model = self.primary_model
         self.research_engine = AutonomousResearchEngine()
         self.metrics = {
@@ -34,28 +35,31 @@ class PipeshiftInferenceEngine:
             "cost_saving": "78% vs base models"
         }
 
-    def _call_gemini_api(self, prompt: str) -> str:
+    def _call_groq_api(self, prompt: str) -> str:
         if not self.api_key or len(self.api_key) < 10:
             return None
 
         ctx = ssl._create_unverified_context()
-        models_to_try = [self.primary_model, self.secondary_model, "gemini-2.0-flash-lite"]
+        models_to_try = [self.primary_model, self.secondary_model, "mixtral-8x7b-32768"]
 
         for m in models_to_try:
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent?key={self.api_key}"
+            url = "https://api.groq.com/openai/v1/chat/completions"
             payload = json.dumps({
-                "contents": [{"parts": [{"text": prompt}]}]
+                "model": m,
+                "messages": [{"role": "user", "content": prompt}]
             }).encode('utf-8')
             
-            req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"})
+            headers = {
+                "Authorization": f"Bearer {self.api_key}",
+                "Content-Type": "application/json"
+            }
+            req = urllib.request.Request(url, data=payload, headers=headers)
             try:
-                with urllib.request.urlopen(req, context=ctx, timeout=5) as resp:
+                with urllib.request.urlopen(req, context=ctx, timeout=10) as resp:
                     data = json.loads(resp.read().decode('utf-8'))
-                    candidates = data.get("candidates", [])
-                    if candidates:
-                        parts = candidates[0].get("content", {}).get("parts", [])
-                        if parts:
-                            return parts[0].get("text", "")
+                    choices = data.get("choices", [])
+                    if choices:
+                        return choices[0].get("message", {}).get("content", "")
             except Exception:
                 continue
         return None
@@ -85,7 +89,7 @@ class PipeshiftInferenceEngine:
             f"Web Research Snippets: {json.dumps(web_research['web_snippets'][:2])}. "
             "Give a feasibility score (0-100), key strengths over competitors, risks, suggestions, and 24h schedule."
         )
-        gemini_text = self._call_gemini_api(prompt)
+        groq_text = self._call_groq_api(prompt)
 
         seed = sum(ord(c) for c in idea_clean) + int(time.time() * 10) % 100
         base_score = 86 + (seed % 11)
@@ -229,8 +233,8 @@ class PipeshiftInferenceEngine:
 
         return {
             "success": True,
-            "model": "gemini-3.6-flash" if gemini_text else self.model,
-            "live_gemini_api_response": gemini_text[:300] if gemini_text else None,
+            "model": "llama3-70b-8192" if groq_text else self.model,
+            "live_groq_api_response": groq_text[:300] if groq_text else None,
             "latency_ms": elapsed,
             "raw_idea": idea_clean,
             "evaluation_score": base_score,
@@ -255,7 +259,7 @@ class PipeshiftInferenceEngine:
         web_research = self.research_engine.research_idea(title)
         
         prompt = f"Generate 7 presentation slide outlines with a 250+ word speech note script for project: '{title}'"
-        gemini_text = self._call_gemini_api(prompt)
+        groq_text = self._call_groq_api(prompt)
 
         slides = [
             {
@@ -366,7 +370,7 @@ class PipeshiftInferenceEngine:
 
         return {
             "success": True,
-            "model": "gemini-3.6-flash" if gemini_text else self.model,
+            "model": "llama3-70b-8192" if groq_text else self.model,
             "latency_ms": elapsed,
             "topic": title,
             "total_slides": len(slides),
@@ -430,7 +434,7 @@ class PipeshiftInferenceEngine:
         web_research = self.research_engine.research_idea(ctx)
 
         prompt = f"Generate 4 tough questions hackathon judges will ask about this project: '{ctx}'. Provide winning answers."
-        gemini_text = self._call_gemini_api(prompt)
+        groq_text = self._call_groq_api(prompt)
 
         qa_pairs = [
             {
@@ -459,7 +463,7 @@ class PipeshiftInferenceEngine:
 
         return {
             "success": True,
-            "model": "gemini-3.6-flash" if gemini_text else self.model,
+            "model": "llama3-70b-8192" if groq_text else self.model,
             "latency_ms": elapsed,
             "project_context": ctx,
             "total_questions": len(qa_pairs),
@@ -473,9 +477,9 @@ class PipeshiftInferenceEngine:
             f"User message: '{user_msg}'. "
             "Answer naturally, warmly, and accurately. If they say hi, greet them. If they ask a question, answer directly with facts."
         )
-        live_gemini_reply = self._call_gemini_api(prompt)
-        if live_gemini_reply:
-            return live_gemini_reply
+        live_groq_reply = self._call_groq_api(prompt)
+        if live_groq_reply:
+            return live_groq_reply
 
         t = user_msg.strip().lower()
         lang = self._detect_language(user_msg)
