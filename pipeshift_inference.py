@@ -24,8 +24,8 @@ from research_engine import AutonomousResearchEngine
 class PipeshiftInferenceEngine:
     def __init__(self, api_key: str = None, endpoint: str = None, model: str = None):
         self.api_key = api_key or os.environ.get("GROQ_API_KEY", "")
-        self.primary_model = "llama3-70b-8192"
-        self.secondary_model = "llama3-8b-8192"
+        self.primary_model = "llama-3.3-70b-versatile"
+        self.secondary_model = "llama-3.1-8b-instant"
         self.model = self.primary_model
         self.research_engine = AutonomousResearchEngine()
         self.metrics = {
@@ -51,7 +51,8 @@ class PipeshiftInferenceEngine:
             
             headers = {
                 "Authorization": f"Bearer {self.api_key}",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "User-Agent": "Mozilla/5.0"
             }
             req = urllib.request.Request(url, data=payload, headers=headers)
             try:
@@ -233,7 +234,7 @@ class PipeshiftInferenceEngine:
 
         return {
             "success": True,
-            "model": "llama3-70b-8192" if groq_text else self.model,
+            "model": "llama-3.3-70b-versatile" if groq_text else self.model,
             "live_groq_api_response": groq_text[:300] if groq_text else None,
             "latency_ms": elapsed,
             "raw_idea": idea_clean,
@@ -370,7 +371,7 @@ class PipeshiftInferenceEngine:
 
         return {
             "success": True,
-            "model": "llama3-70b-8192" if groq_text else self.model,
+            "model": "llama-3.3-70b-versatile" if groq_text else self.model,
             "latency_ms": elapsed,
             "topic": title,
             "total_slides": len(slides),
@@ -463,7 +464,7 @@ class PipeshiftInferenceEngine:
 
         return {
             "success": True,
-            "model": "llama3-70b-8192" if groq_text else self.model,
+            "model": "llama-3.3-70b-versatile" if groq_text else self.model,
             "latency_ms": elapsed,
             "project_context": ctx,
             "total_questions": len(qa_pairs),
