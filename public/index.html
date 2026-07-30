@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HackCoach.ai — Grounded Hackathon Coach & PPT Engine</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="theme-light">
+
+  <!-- Dynamic Ambient Background Floating Orbs & Particle Grid -->
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+  <div class="bg-particle-grid"></div>
+
+  <!-- Top Header Navigation Bar -->
+  <header class="top-header">
+    <div class="header-left">
+      <!-- Website Logo & Name -->
+      <div class="brand-container">
+        <div class="brand-logo">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="14" fill="#3D2B1F" />
+            <path d="M10 22L16 8L22 22L16 17L10 22Z" fill="#FDFBF7" />
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">HackCoach<span class="accent-ai">.ai</span></span>
+          <span class="brand-sub">AI Agent Engine</span>
+        </div>
+      </div>
+
+      <!-- Official SVG Icon Social Links Bar (No Text Names) -->
+      <div class="header-social-links">
+        
+        <!-- Instagram SVG Logo -->
+        <a href="https://instagram.com" target="_blank" rel="noopener" class="social-icon-btn" title="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+
+        <!-- LinkedIn SVG Logo -->
+        <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-icon-btn" title="LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+            <rect x="2" y="9" width="4" height="12"></rect>
+            <circle cx="4" cy="4" r="2"></circle>
+          </svg>
+        </a>
+
+        <!-- Email SVG Logo -->
+        <a href="mailto:contact@hackcoach.ai" class="social-icon-btn" title="Email Us">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+        </a>
+
+        <!-- Twitter / X SVG Logo -->
+        <a href="https://x.com" target="_blank" rel="noopener" class="social-icon-btn" title="Twitter / X">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Header Right: Theme Toggle -->
+    <div class="header-right">
+      <button class="theme-toggle-btn" id="theme-toggle-btn">
+        <span id="theme-icon">🌙</span>
+        <span id="theme-text">Dark Mode</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container with Left Sidebar Shelves and Content Workspace -->
+  <div class="app-layout">
+    
+    <!-- Left Navigation Shelves -->
+    <aside class="left-sidebar">
+      <div class="sidebar-section-title">COACH SHELVES</div>
+      <nav class="shelf-nav">
+        
+        <button class="shelf-btn active" data-shelf="evaluator">
+          <div class="shelf-icon">🎯</div>
+          <div class="shelf-info">
+            <span class="shelf-title">Project Evaluator</span>
+            <span class="shelf-desc">Score & Web Research</span>
+          </div>
+        </button>
+
+        <button class="shelf-btn" data-shelf="ppt">
+          <div class="shelf-icon">📊</div>
+          <div class="shelf-info">
+            <span class="shelf-title">7-Slide PPT Generator</span>
+            <span class="shelf-desc">Auto & Custom Topics</span>
+          </div>
+        </button>
+
+        <button class="shelf-btn" data-shelf="qa">
+          <div class="shelf-icon">❓</div>
+          <div class="shelf-info">
+            <span class="shelf-title">Judge Q&A Simulator</span>
+            <span class="shelf-desc">Evaluator Questions</span>
+          </div>
+        </button>
+
+        <button class="shelf-btn" data-shelf="roadmap">
+          <div class="shelf-icon">🗺️</div>
+          <div class="shelf-info">
+            <span class="shelf-title">Project Roadmap</span>
+            <span class="shelf-desc">Dynamic 5-Phase Plan</span>
+          </div>
+        </button>
+
+        <button class="shelf-btn" data-shelf="chatbot">
+          <div class="shelf-icon">💬</div>
+          <div class="shelf-info">
+            <span class="shelf-title">AI Agent Coach</span>
+            <span class="shelf-desc">Multilingual Assistant</span>
+          </div>
+        </button>
+
+      </nav>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-footer">
+        <div class="engine-badge">
+          <span>💧 HydraDB & Flash Engine</span>
+          <span class="dot-green"></span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Content Workspace Panels -->
+    <main class="main-content">
+
+      <!-- View 1: Project Evaluator -->
+      <section id="view-evaluator" class="workspace-panel active">
+        <div class="panel-header animated-section">
+          <div>
+            <h2>🎯 Project Evaluator & AI Agent Coach</h2>
+            <p>Paste your project idea below. AI Agent Coach will evaluate feasibility, provide a 0-100 quality score, conduct web research, and build a 24-hour milestone schedule.</p>
+          </div>
+        </div>
+
+        <div class="query-box-card animated-section">
+          <label>ENTER PROJECT IDEA:</label>
+          <div class="input-row">
+            <input type="text" id="eval-idea-input" value="AI co-founder that audits hackathon scope, grounds tasks in developer tools, and builds pitch decks" />
+            <button class="btn-primary ripple-btn" id="run-evaluator-btn">
+              <span>Research & Evaluate Idea</span>
+            </button>
+            <button class="btn-secondary ripple-btn" id="trigger-approval-modal-btn">
+              <span>Apply & Lock Schedule</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Evaluation Score Banner -->
+        <div class="score-banner-card animated-section">
+          <div class="score-left">
+            <div class="score-number" id="eval-score-num">94</div>
+            <div class="score-details">
+              <div class="score-title">FEASIBILITY & QUALITY SCORE</div>
+              <div class="score-status" id="eval-status-text">EXCELLENT (High Demo Potential)</div>
+            </div>
+          </div>
+          <div class="score-right">
+            <span class="badge-accent">Flash 3.6 Sub-50ms Engine</span>
+          </div>
+        </div>
+
+        <!-- Autonomous Web Research Card -->
+        <div class="card research-card animated-section">
+          <h3>🌐 Autonomous Web Research & Market Competitor Analysis</h3>
+          <div class="research-body" id="eval-research-box">
+            <!-- Loaded dynamically -->
+          </div>
+        </div>
+
+        <!-- Analysis Cards Grid -->
+        <div class="eval-grid animated-section">
+          <div class="card">
+            <h3>💪 Key Project Strengths</h3>
+            <div class="bullet-list" id="eval-strengths-box"></div>
+          </div>
+
+          <div class="card">
+            <h3>⚠️ Risks to Mitigate</h3>
+            <div class="bullet-list" id="eval-risks-box"></div>
+          </div>
+        </div>
+
+        <!-- AI Suggested Ideas & Recommended Changes -->
+        <div class="eval-grid animated-section">
+          <div class="card">
+            <h3>💡 AI Suggested Feature Ideas</h3>
+            <div class="bullet-list" id="eval-suggestions-box"></div>
+          </div>
+
+          <div class="card">
+            <h3>🛠️ Recommended Architecture Changes</h3>
+            <div class="bullet-list" id="eval-changes-box"></div>
+          </div>
+        </div>
+
+        <!-- 24-Hour Milestone Schedule -->
+        <div class="card timeline-card animated-section">
+          <h3>📅 AI Agent 24-Hour Milestone Schedule</h3>
+          <div class="timeline-grid" id="eval-schedule-box"></div>
+        </div>
+      </section>
+
+      <!-- View 2: Complete 7-Slide PPT Generator -->
+      <section id="view-ppt" class="workspace-panel">
+        <div class="panel-header animated-section">
+          <div>
+            <h2>📊 Complete 7-Slide Presentation PPT Generator</h2>
+            <p>AI Agent Coach automatically synthesizes a complete 7-slide presentation deck covering your entire project plan—or generate a custom PPT for any topic on demand!</p>
+          </div>
+        </div>
+
+        <div class="query-box-card animated-section">
+          <label>GENERATE PPT FOR ANY CUSTOM TOPIC (OPTIONAL):</label>
+          <div class="input-row">
+            <input type="text" id="custom-ppt-topic-input" placeholder="e.g. AI-Powered Healthcare Diagnostics in 2026..." />
+            <button class="btn-primary ripple-btn" id="generate-custom-ppt-btn">
+              <span>Generate Custom Topic PPT</span>
+            </button>
+            <button class="btn-secondary ripple-btn" id="generate-auto-project-ppt-btn">
+              <span>Generate Auto Project PPT</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Presentation Slides Grid -->
+        <div class="slides-grid" id="ppt-slides-container">
+          <!-- Loaded dynamically -->
+        </div>
+
+        <!-- Speech Script Box -->
+        <div class="card script-card animated-section">
+          <h3>🎙️ Complete Presenter Speech Script</h3>
+          <div class="script-body" id="ppt-script-body">
+            Click one of the buttons above to generate full presentation slides and speech script...
+          </div>
+        </div>
+      </section>
+
+      <!-- View 3: Judge Q&A Simulator -->
+      <section id="view-qa" class="workspace-panel">
+        <div class="panel-header animated-section">
+          <div>
+            <h2>❓ Judge Q&A Simulator & Defense Strategy</h2>
+            <p>AI Agent Coach analyzes your specific project idea and predicts the exact questions evaluators and judges will ask, providing winning AI answers and strategic suggestions.</p>
+          </div>
+          <button class="btn-primary ripple-btn" id="refresh-qa-btn">
+            <span>Refresh Judge Questions</span>
+          </button>
+        </div>
+
+        <div class="qa-container" id="qa-list-box">
+          <!-- Loaded dynamically -->
+        </div>
+      </section>
+
+      <!-- View 4: Project Roadmap -->
+      <section id="view-roadmap" class="workspace-panel">
+        <div class="panel-header animated-section">
+          <div>
+            <h2>🗺️ Project Execution Roadmap</h2>
+            <p>5-Phase step-by-step development roadmap dynamically generated for your specific project idea.</p>
+          </div>
+        </div>
+
+        <div class="roadmap-grid" id="roadmap-phases-box">
+          <!-- Loaded dynamically -->
+        </div>
+      </section>
+
+      <!-- View 5: AI Agent Coach Shelf -->
+      <section id="view-chatbot" class="workspace-panel">
+        <div class="panel-header animated-section">
+          <div>
+            <h2>💬 Live Multilingual AI Agent Coach</h2>
+            <p>Multilingual Conversational Assistant (English, Spanish, French, German, Hindi, Japanese, etc.).</p>
+          </div>
+        </div>
+
+        <div class="chat-shelf-container animated-section">
+          <div class="chat-messages-box" id="shelf-chat-messages">
+            <div class="chat-msg bot">
+              <div class="msg-avatar">🤖</div>
+              <div class="msg-content">
+                Hello! ¡Hola! Bonjour! Hallo! नमस्ते! こんにちは!
+                <br><br>
+                I am your <strong>Multilingual AI Agent Coach</strong> at <strong>HackCoach.ai</strong>. Ask me anything in your preferred language!
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-input-bar">
+            <input type="text" id="shelf-chat-input" placeholder="Ask AI Agent Coach a question in any language..." />
+            <button class="btn-primary ripple-btn" id="shelf-send-btn">Send Message</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Interactive "Are You Sure You Want to Update This?" Popup Modal -->
+  <div class="modal-overlay" id="approval-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>⚠️ Confirm Schedule & Scope Update</h3>
+        <button class="close-modal-btn" id="close-approval-modal-btn">✕</button>
+      </div>
+      <div class="modal-body-text">
+        <p><strong>Are you sure you want to update and lock this project plan?</strong></p>
+        <p style="font-size:12px; color:var(--text-muted); margin-top:8px;">
+          This action will lock the 24-hour milestone schedule and update the active project context for PPT generation and Judge Q&A simulations.
+        </p>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary ripple-btn" id="cancel-approval-btn">Cancel / Revise</button>
+        <button type="button" class="btn-primary ripple-btn" id="confirm-approval-btn">Yes, Lock & Update</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
