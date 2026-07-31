@@ -85,7 +85,10 @@ class PipeshiftInferenceEngine:
         
         if groq_text:
             try:
-                parsed_data = json.loads(groq_text)
+                new_data = json.loads(groq_text)
+                for k in ["strengths", "risks_to_mitigate", "ai_suggested_features", "recommended_changes", "schedule_24h", "score", "feasibility_text"]:
+                    if new_data.get(k) is not None:
+                        parsed_data[k] = new_data[k]
             except json.JSONDecodeError:
                 pass
 
@@ -103,12 +106,12 @@ class PipeshiftInferenceEngine:
             "feasibility": feasibility_text,
             "web_research": web_research,
             "analysis": {
-                "strengths": parsed_data.get("strengths", []),
-                "risks_to_mitigate": parsed_data.get("risks_to_mitigate", []),
-                "ai_suggested_features": parsed_data.get("ai_suggested_features", []),
-                "recommended_changes": parsed_data.get("recommended_changes", [])
+                "strengths": parsed_data.get("strengths") or [],
+                "risks_to_mitigate": parsed_data.get("risks_to_mitigate") or [],
+                "ai_suggested_features": parsed_data.get("ai_suggested_features") or [],
+                "recommended_changes": parsed_data.get("recommended_changes") or []
             },
-            "schedule_24h": parsed_data.get("schedule_24h", [])
+            "schedule_24h": parsed_data.get("schedule_24h") or []
         }
 
     def generate_full_ppt(self, topic: str = None, idea_context: str = None) -> Dict[str, Any]:
