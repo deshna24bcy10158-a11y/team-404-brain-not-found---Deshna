@@ -97,8 +97,16 @@ async function runIdeaEvaluation() {
     const data = await resp.json();
     const evalData = data.evaluation;
 
-    scoreNum.textContent = evalData.evaluation_score;
+    const scoreNumVal = evalData.evaluation_score;
+    scoreNum.textContent = scoreNumVal;
     statusText.textContent = evalData.feasibility;
+
+    // Animate SVG Ring
+    const ring = document.getElementById('eval-score-ring');
+    if (ring) {
+      const offset = 214 - (scoreNumVal / 100) * 214;
+      ring.style.strokeDashoffset = offset;
+    }
 
     // Render Web Research Findings & Competitor Analysis
     if (evalData.web_research) {

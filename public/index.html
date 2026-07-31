@@ -169,14 +169,23 @@
         <!-- Evaluation Score Banner -->
         <div class="score-banner-card animated-section">
           <div class="score-left">
-            <div class="score-number" id="eval-score-num">94</div>
+            <div class="score-ring-container">
+              <svg class="score-ring-svg" width="80" height="80">
+                <circle class="score-ring-bg" cx="40" cy="40" r="34" />
+                <circle class="score-ring-fill" id="eval-score-ring" cx="40" cy="40" r="34" />
+              </svg>
+              <div class="score-number" id="eval-score-num">⏳</div>
+            </div>
             <div class="score-details">
-              <div class="score-title">FEASIBILITY & QUALITY SCORE</div>
-              <div class="score-status" id="eval-status-text">EXCELLENT (High Demo Potential)</div>
+              <div class="score-title">
+                AI RESEARCH-BACKED FEASIBILITY SCORE
+                <span class="pulsing-live-badge"><span class="dot-green"></span> Live Research</span>
+              </div>
+              <div class="score-status" id="eval-status-text">Agent analyzing web data...</div>
             </div>
           </div>
           <div class="score-right">
-            <span class="badge-accent">Flash 3.6 Sub-50ms Engine</span>
+            <span class="badge-accent">Total Analysis Driven by AI</span>
           </div>
         </div>
 
