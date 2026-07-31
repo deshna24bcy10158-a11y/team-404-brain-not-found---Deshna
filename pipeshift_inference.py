@@ -67,7 +67,8 @@ class PipeshiftInferenceEngine:
             "- 'ai_suggested_features': List of 3 string bullet points with feature suggestions.\n"
             "- 'recommended_changes': List of 3 string bullet points recommending architecture or scope changes.\n"
             "- 'schedule_24h': List of 5 objects representing a 24-hour hackathon schedule. Each object must have 'hour' (e.g. '00:00 - 04:00'), 'phase', 'task', and 'status' (set status to 'IN_PROGRESS' or 'SCHEDULED').\n"
-            "- 'score': An integer from 0 to 100 representing feasibility."
+            "- 'score': An integer from 0 to 100 representing the honest, objective feasibility and quality of the idea based on the research provided.\n"
+            "- 'feasibility_text': A short, punchy 3-6 word status summary (e.g., 'EXCELLENT (High Demo Potential)', 'HIGH RISK (Over-scoped)', 'NEEDS PIVOT')."
         )
         groq_text = self._call_groq_api(prompt, json_mode=True)
         
@@ -78,7 +79,8 @@ class PipeshiftInferenceEngine:
             "ai_suggested_features": ["Implement real-time dashboard", "Add Q&A simulator prep"],
             "recommended_changes": ["Use local state instead of database for MVP", "Mock heavy integrations"],
             "schedule_24h": [],
-            "score": 85
+            "score": 85,
+            "feasibility_text": "FEASIBLE WITH SCOPE OPTIMIZATION"
         }
         
         if groq_text:
@@ -89,6 +91,7 @@ class PipeshiftInferenceEngine:
 
         elapsed = round((time.time() - start_time) * 1000, 2)
         score = parsed_data.get("score", 85)
+        feasibility_text = parsed_data.get("feasibility_text", "FEASIBLE WITH SCOPE OPTIMIZATION" if score <= 88 else "EXCELLENT (High Demo Potential)")
 
         return {
             "success": True,
@@ -97,7 +100,7 @@ class PipeshiftInferenceEngine:
             "latency_ms": elapsed,
             "raw_idea": idea_clean,
             "evaluation_score": score,
-            "feasibility": "EXCELLENT (High Demo Potential)" if score > 88 else "FEASIBLE WITH SCOPE OPTIMIZATION",
+            "feasibility": feasibility_text,
             "web_research": web_research,
             "analysis": {
                 "strengths": parsed_data.get("strengths", []),
