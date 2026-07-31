@@ -67,7 +67,7 @@ class PipeshiftInferenceEngine:
             "- 'ai_suggested_features': List of 3 string bullet points with feature suggestions.\n"
             "- 'recommended_changes': List of 3 string bullet points recommending architecture or scope changes.\n"
             "- 'schedule_24h': List of 5 objects representing a 24-hour hackathon schedule. Each object must have 'hour' (e.g. '00:00 - 04:00'), 'phase', 'task', and 'status' (set status to 'IN_PROGRESS' or 'SCHEDULED').\n"
-            "- 'score': An integer from 0 to 100 representing the honest, BRUTALLY REALISTIC feasibility and quality of the idea based on the research. Do not sugarcoat. If the idea is common, over-scoped, or physically impossible in 24 hours, give it a score below 50. Use the full 0-100 range.\n"
+            "- 'score': An integer from 0 to 100 representing the honest and balanced feasibility and quality of the idea based on the research. Give a fair, objective assessment. If the idea is weak or over-scoped, score it appropriately lower, but recognize its merits.\n"
             "- 'feasibility_text': A short, punchy 3-6 word status summary (e.g., 'EXCELLENT (High Demo Potential)', 'HIGH RISK (Over-scoped)', 'NEEDS PIVOT')."
         )
         groq_text = self._call_groq_api(prompt, json_mode=True)
