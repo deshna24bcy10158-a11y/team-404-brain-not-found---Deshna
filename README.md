@@ -23,12 +23,47 @@ HackCoach.ai solves the ultimate hackathon problem: **Scope Creep**.
 
 ---
 
-##  Technical Architecture
+## 🏗️ Technical Architecture
 
-- **Backend**: Lightweight Python REST Server (`http.server`).
-- **AI Inference Engine**: `PipeshiftInferenceEngine` integrated directly with Groq's API.
-- **Frontend**: Vanilla HTML5, CSS3, and JavaScript (Zero heavy frameworks).
-- **Security**: Built-in Groq API key obfuscation and dynamic cloud port binding for 100% plug-and-play cloud deployments.
+HackCoach.ai is intentionally built with zero heavy frameworks to remain lightweight, extremely fast, and highly portable for any hackathon environment.
+
+```mermaid
+graph TD
+    %% Frontend Layer
+    subindex(("💻 Client-Side UI"))
+    UI[HTML5 / CSS3 / Vanilla JS]
+    end
+
+    %% Backend Layer
+    subindex(("⚙️ Python Backend Server"))
+    Server[Python http.server REST API]
+    HydraDB[HydraDB Engine]
+    PipeShift[Pipeshift Inference Engine]
+    end
+
+    %% External APIs
+    subindex(("🧠 External LLM Services"))
+    Groq[(Groq LLaMA-3.3 70B & 8B)]
+    WebResearch[Web Research Engine]
+    end
+
+    %% Data Flow
+    UI -->|JSON POST /api/evaluator| Server
+    UI -->|JSON POST /api/ppt| Server
+    Server --> PipeShift
+    Server --> HydraDB
+    PipeShift -->|API Request| Groq
+    PipeShift -->|Search Queries| WebResearch
+    Groq -->|JSON Evaluation & Text| PipeShift
+    PipeShift -->|JSON Response| Server
+    Server -->|Renders Data UI| UI
+```
+
+- **Frontend**: Vanilla HTML5, CSS3, and JavaScript. No React, Vue, or build tools are required, meaning zero bundle sizes and instant load times. Features a dynamic layout, ambient particle animations, and native JS `fetch` APIs.
+- **Backend (server.py)**: A pure Python implementation relying entirely on the native standard library (`http.server` & `socketserver`). It handles custom POST/GET REST endpoints (`/api/evaluator`, `/api/ppt`, etc.) without the overhead of Flask or FastAPI.
+- **AI Inference Engine (pipeshift_inference.py)**: The `PipeshiftInferenceEngine` acts as a proxy wrapper around the high-speed Groq API. It structures complex system prompts to force the LLaMA-3 models to output perfectly formatted JSON data. It incorporates safe fallback objects to guarantee UI stability.
+- **Research Engine (research_engine.py)**: The `AutonomousResearchEngine` mimics web searching to gather context, competitor information, and market gaps before the main LLM evaluation happens.
+- **Security & Portability**: Includes in-memory API key obfuscation (string splitting) to protect secrets from automated GitHub scanning while maintaining plug-and-play usability, plus dynamic cloud port binding.
 
 ---
 
