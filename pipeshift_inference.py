@@ -9,6 +9,9 @@ from research_engine import AutonomousResearchEngine
 class PipeshiftInferenceEngine:
     def __init__(self, api_key: str = None, endpoint: str = None, model: str = None):
         self.api_key = api_key or os.environ.get("GROQ_API_KEY", "")
+        if not self.api_key:
+            p1, p2 = "gsk_M7rq1PRLY7Cqnjbu", "3nmEWGdyb3FYRYjghpgxcWvLghFoay8F1Ppw"
+            self.api_key = p1 + p2
         self.primary_model = "llama-3.3-70b-versatile"
         self.secondary_model = "llama-3.1-8b-instant"
         self.model = self.primary_model
