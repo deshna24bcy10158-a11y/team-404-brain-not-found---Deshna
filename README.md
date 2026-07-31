@@ -30,19 +30,19 @@ HackCoach.ai is intentionally built with zero heavy frameworks to remain lightwe
 ```mermaid
 graph TD
     %% Frontend Layer
-    subindex(("💻 Client-Side UI"))
+    subgraph 💻 Client-Side UI
     UI[HTML5 / CSS3 / Vanilla JS]
     end
 
     %% Backend Layer
-    subindex(("⚙️ Python Backend Server"))
+    subgraph ⚙️ Python Backend Server
     Server[Python http.server REST API]
     HydraDB[HydraDB Engine]
     PipeShift[Pipeshift Inference Engine]
     end
 
     %% External APIs
-    subindex(("🧠 External LLM Services"))
+    subgraph 🧠 External LLM Services
     Groq[(Groq LLaMA-3.3 70B & 8B)]
     WebResearch[Web Research Engine]
     end
