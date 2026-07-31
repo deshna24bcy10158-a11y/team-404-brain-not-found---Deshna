@@ -15,7 +15,7 @@ from typing import Dict, Any
 from hydradb_engine import HydraDBEngine
 from pipeshift_inference import PipeshiftInferenceEngine
 
-PORT = 8080
+PORT = int(os.environ.get("PORT", 8080))
 PUBLIC_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "public")
 
 # Core Engines

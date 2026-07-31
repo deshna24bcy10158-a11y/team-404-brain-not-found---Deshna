@@ -1,0 +1,2 @@
+# HackCoach.ai dependencies
+# No external pip dependencies required - built with Python standard library.
