@@ -1,4 +1,4 @@
-# 🚀 HackCoach.ai
+# HackCoach.ai
 
 **A Grounded Enterprise Hackathon Operations Engine.**
 
@@ -11,19 +11,19 @@ HackCoach.ai solves the ultimate hackathon problem: **Scope Creep**.
 
 ---
 
-## ✨ Features
+##  Features
 
-- 🧠 **AI Project Evaluator**: Scans the web, analyzes competitors, and provides a feasibility score (0-100), key strengths, risks, and suggested architectural changes.
-- 🕒 **Dynamic 24-Hour Roadmap**: A strict 5-phase execution timeline with interactive glide buttons (Incomplete -> In Progress -> Completed) to track project status.
-- 📊 **Automated PPT Generator**: Synthesizes 7-slide presentation deck outlines and a complete 250+ word presenter script automatically.
-- ⚖️ **Judge Q&A Simulator**: Predicts tough evaluator questions and provides defense strategies for presenting on stage.
-- 💬 **Interactive AI Agent Coach**: A multilingual conversational AI assistant that helps developers debug, strategize, and brainstorm in real-time.
-- 🌓 **Responsive UI/UX**: A warm beige, espresso, and gold aesthetic with interactive Light/Dark modes, ambient background animations, and fluid mobile responsiveness.
-- ⚡ **Sub-50ms Inference**: Powered by Groq's high-speed LLaMA-3 models for instant, zero-latency execution.
+- **AI Project Evaluator**: Scans the web, analyzes competitors, and provides a feasibility score (0-100), key strengths, risks, and suggested architectural changes.
+-  **Dynamic 24-Hour Roadmap**: A strict 5-phase execution timeline with interactive glide buttons (Incomplete -> In Progress -> Completed) to track project status.
+-  **Automated PPT Generator**: Synthesizes 7-slide presentation deck outlines and a complete 250+ word presenter script automatically.
+-  **Judge Q&A Simulator**: Predicts tough evaluator questions and provides defense strategies for presenting on stage.
+-  **Interactive AI Agent Coach**: A multilingual conversational AI assistant that helps developers debug, strategize, and brainstorm in real-time.
+-  **Responsive UI/UX**: A warm beige, espresso, and gold aesthetic with interactive Light/Dark modes, ambient background animations, and fluid mobile responsiveness.
+-  **Sub-50ms Inference**: Powered by Groq's high-speed LLaMA-3 models for instant, zero-latency execution.
 
 ---
 
-## 🛠️ Technical Architecture
+##  Technical Architecture
 
 - **Backend**: Lightweight Python REST Server (`http.server`).
 - **AI Inference Engine**: `PipeshiftInferenceEngine` integrated directly with Groq's API.
@@ -32,7 +32,7 @@ HackCoach.ai solves the ultimate hackathon problem: **Scope Creep**.
 
 ---
 
-## 🚀 Running Locally
+##  Running Locally
 
 You do not need to install any heavy packages or `pip` dependencies. HackCoach.ai uses the pure Python standard library!
 
@@ -52,7 +52,7 @@ You do not need to install any heavy packages or `pip` dependencies. HackCoach.a
 
 ---
 
-## ☁️ Cloud Deployment
+## Cloud Deployment
 
 This project is pre-configured and 100% ready for deployment on **Render**, **Heroku**, or **Railway**. 
 
@@ -64,5 +64,5 @@ This project is pre-configured and 100% ready for deployment on **Render**, **He
 
 ---
 
-## 🤝 Built By
+## Built By
 **Team 404 Brain Not Found**
